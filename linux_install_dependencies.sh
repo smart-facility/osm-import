@@ -5,3 +5,4 @@
 sudo apt-get update
 sudo apt-get install osm2pgsql postgresql postgis postgresql-9.3-postgis-scripts git
 sudo make install
+sudo apt-get install osm2pgsql postgresql postgis postgresql-9.3-postgis-scripts git build-essential libz-dev
