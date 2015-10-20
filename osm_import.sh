@@ -67,7 +67,7 @@ osm2pgsql -H localhost -p osm -d osm -m -E 3857 -C 4096 all.osm
 #osm2pgsql -H localhost -p osm -d osm -m -E 3857 -C 4096 -a indonesia-latest.osm.pbf
 #osm2pgsql -H localhost -p osm -d osm -m -E 3857 -C 4096 -a china-latest.osm.pbf
 
-psql -d osm -f ../basemaps/contrib/osm2pgsql-to-imposm-schema.sql
+psql -d osm -f basemaps/contrib/osm2pgsql-to-imposm-schema.sql
 
 # These lines I include as I want to host this database on a separate machine from the one I run this script on:
 pg_dump -O -b -f osm.sql osm
