@@ -49,13 +49,23 @@ pbunzip2 *.bz2
 
 createdb -E utf8 osm
 
+OS=`uname -s`
+
+if [ $OS == "Linux" ];
+  then POSTGIS_PATH=/usr/share/postgresql/9.3/contrib/postgis-2.1
+elif [ $OS == "Darwin" ];
+  then POSTGIS_PATH=/usr/local/share/postgis
+else echo "Operating system unknown"
+  exit 1
+fi
+
 # Following path is for OS X / homebrew.
 # For Ubuntu 14.04 LTS change /usr/local/share to /usr/share/postgresql/9.3/contrib/postgis-2.1
 
-psql -d osm -f /usr/local/share/postgis/postgis.sql
-psql -d osm -f /usr/local/share/postgis/spatial_ref_sys.sql
-psql -d osm -f /usr/local/share/postgis/legacy.sql
-psql -d osm -f /usr/local/share/postgis/legacy_gist.sql
+psql -d osm -f $POSTGIS_PATH/postgis.sql
+psql -d osm -f $POSTGIS_PATH/spatial_ref_sys.sql
+psql -d osm -f $POSTGIS_PATH/legacy.sql
+psql -d osm -f $POSTGIS_PATH/legacy_gist.sql
 
 # Directly importing individuall using osm2pgsql started failing because of some overlap between indonesia and china in newer cuts of the planet file.
 # osmconvert works around that
