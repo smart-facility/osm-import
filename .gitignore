@@ -1,0 +1,4 @@
+*.bz2
+*.osm
+nohup.out
+osmconvert
