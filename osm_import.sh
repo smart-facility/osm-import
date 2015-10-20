@@ -42,9 +42,9 @@
 # I include the ones I use here for example.
 
 rm osm.sql.bz2 # remove the old compressed version. We do some steps later to transfer the db to a new host.
-wget "http://download.geofabrik.de/australia-oceania-latest.osm.bz2"
-wget "http://download.geofabrik.de/asia/indonesia-latest.osm.bz2"
-wget "http://download.geofabrik.de/asia/china-latest.osm.bz2"
+curl -O http://download.geofabrik.de/australia-oceania-latest.osm.bz2
+curl -O http://download.geofabrik.de/asia/indonesia-latest.osm.bz2
+curl -O http://download.geofabrik.de/asia/china-latest.osm.bz2
 pbunzip2 *.bz2
 
 createdb -E utf8 osm
