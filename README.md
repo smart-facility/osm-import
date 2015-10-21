@@ -1,5 +1,5 @@
 # osm-import
-Code for importing openstreetmap data
+Code for importing openstreetmap data.
 
 # Dependency installation using homebrew under OS X:
 ```shell
