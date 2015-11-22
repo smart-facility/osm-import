@@ -40,12 +40,11 @@ psql -d osm -f $POSTGIS_PATH/legacy_gist.sql
 # Directly importing individuall using osm2pgsql started failing because of some overlap between indonesia and china in newer cuts of the planet file.
 # osmconvert works around that
 osmconvert australia-oceania-latest.osm indonesia-latest.osm china-latest.osm -o=all.osm
+rm australia-oceania-latest.osm indonesia-latest.osm china-latest.osm # we can trash these files now to reduce overall space needed to run the whole script
 
 osm2pgsql -H localhost -p osm -d osm -m -E 3857 -C 4096 all.osm
-# Note that any subsequent files need the -a option, to append them in.
-# You may need to tweak the cache size with the -C option (in MB), the default being too small to process the Asia .pbf file, for example.
-#osm2pgsql -H localhost -p osm -d osm -m -E 3857 -C 4096 -a indonesia-latest.osm.pbf
-#osm2pgsql -H localhost -p osm -d osm -m -E 3857 -C 4096 -a china-latest.osm.pbf
+
+rm all.osm # not needed any more
 
 psql -d osm -f basemaps/contrib/osm2pgsql-to-imposm-schema.sql
 
