@@ -16,4 +16,4 @@
 # Notably, the make install command relies on /usr/local ownership by local user
 brew update
 brew doctor || { echo "Please fix issues identified by brew doctor." ; exit 1 ; }
-brew install postgres postgis osm2pgsql
+brew install postgres postgis osm2pgsql libz-dev

@@ -14,4 +14,4 @@
 
 sudo apt-get update
 sudo make install
-sudo apt-get install osm2pgsql postgresql postgis postgresql-9.5-postgis-scripts git build-essential
+sudo apt-get install osm2pgsql postgresql postgis postgresql-9.5-postgis-scripts git build-essential zlib1g-dev zlib1g
