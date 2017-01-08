@@ -12,6 +12,8 @@
 # You should have received a copy of the GNU General Public License along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 rm osm.sql.bz2 # remove the old compressed version. We do some steps later to transfer the db to a new host.
+dropdb osm # remove the old database
+
 curl -O http://download.geofabrik.de/australia-oceania-latest.osm.bz2
 curl -O http://download.geofabrik.de/asia/indonesia-latest.osm.bz2
 curl -O http://download.geofabrik.de/asia/china-latest.osm.bz2
@@ -22,7 +24,7 @@ createdb -E utf8 osm
 OS=`uname -s`
 
 if [ $OS == "Linux" ];
-  then POSTGIS_PATH=/usr/share/postgresql/9.3/contrib/postgis-2.1
+  then POSTGIS_PATH=/usr/share/postgresql/9.5/contrib/postgis-2.2
 elif [ $OS == "Darwin" ];
   then POSTGIS_PATH=/usr/local/share/postgis
 else echo "Operating system unknown"
@@ -44,16 +46,6 @@ rm australia-oceania-latest.osm indonesia-latest.osm china-latest.osm # we can t
 
 osm2pgsql -H localhost -p osm -d osm -m -E 3857 -C 4096 all.osm
 
-rm all.osm # not needed any more
+rm all.osm
 
 psql -d osm -f basemaps/contrib/osm2pgsql-to-imposm-schema.sql
-
-# These lines I include as I want to host this database on a separate machine from the one I run this script on:
-pg_dump -O -b -f osm.sql osm
-pbzip2 -9 osm.sql
-
-# Clean up the .pbf files so that the latest versions are downloaded next time.
-# I turn this off and comment out the wget lines when I want to debug the rest to save on downloads and time.
-rm *.osm
-# Database is no longer needed (we transfer it across to a different box) - you may want to comment this out.
-dropdb osm

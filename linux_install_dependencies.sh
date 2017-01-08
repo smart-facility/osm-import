@@ -14,5 +14,4 @@
 
 sudo apt-get update
 sudo make install
-sudo apt-get install osm2pgsql postgresql postgis postgresql-9.3-postgis-scripts git build-essential libz-dev pbzip2
-sudo ln -s -f /usr/bin/pbzip2 /usr/bin/pbunzip2 # because this is broken in some ubuntu packages for pbzip2
+sudo apt-get install osm2pgsql postgresql postgis postgresql-9.5-postgis-scripts git build-essential
